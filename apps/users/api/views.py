@@ -1,11 +1,11 @@
-#from rest_framework.views import APIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import UserSerializer,UsertestSerializer
 from apps.users.models import User
 from rest_framework import status
+
 # decorator
 from rest_framework.decorators import api_view
-
 
 @api_view(['GET'])
 def ListUser(request):
@@ -72,3 +72,20 @@ def DeleteUser(request,pk):
         return Response({
             "message":"Error no existe el codigo {pk}"
         })
+
+class CreateUsuarios(APIView):
+    serialier_class=UsertestSerializer
+    def get(self,request):
+        context={
+            'username':'Thiago',
+            'email':'thiago@gmail.com',
+        }
+        user=self.serialier_class(data=context)
+        if user.is_valid():
+            user_create=user.save()
+            return Response({
+                "message":f"Creado {user_create}",
+                "data":user.data
+            })
+        else:
+            return Response(user.errors)
