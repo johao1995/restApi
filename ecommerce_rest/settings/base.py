@@ -35,7 +35,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 LOCAL_APPS = [
-    'apps.users'
+    'apps.base',
+    'apps.users',
+    'apps.product'
 ]
 
 TERCEROS_APPS = [
